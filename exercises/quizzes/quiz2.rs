@@ -37,8 +37,9 @@ mod my_module {
                 Command::Append(n) => string + &"bar".repeat(n),
             };
 
-            result.push(value)
+            result.push(value);
         }
+
         result
     }
 }
