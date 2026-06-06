@@ -17,11 +17,16 @@ struct Deployment {
 impl Deployment {
     fn scale_to(&mut self, replicas: u16) {
         // TODO: Update self.replicas.
+        self.replicas = replicas;
     }
 }
 
 fn main() {
-    let mut deployment = Deployment { service: "api".to_string(), version: "1.0".to_string(), replicas: 1 };
+    let mut deployment = Deployment {
+        service: "api".to_string(),
+        version: "1.0".to_string(),
+        replicas: 1,
+    };
     deployment.scale_to(3);
     println!("{deployment:?}");
 }
@@ -32,7 +37,11 @@ mod tests {
 
     #[test]
     fn scales_deployment() {
-        let mut deployment = Deployment { service: "api".to_string(), version: "1.0".to_string(), replicas: 1 };
+        let mut deployment = Deployment {
+            service: "api".to_string(),
+            version: "1.0".to_string(),
+            replicas: 1,
+        };
         deployment.scale_to(4);
         assert_eq!(deployment.replicas, 4);
         assert_eq!(deployment.service, "api");

@@ -15,12 +15,15 @@ struct RateLimit {
 impl RateLimit {
     fn remaining(&self) -> u32 {
         // TODO: Return 0 if used is greater than limit.
-        self.limit
+        self.limit.saturating_sub(self.used)
     }
 }
 
 fn main() {
-    let limit = RateLimit { limit: 100, used: 25 };
+    let limit = RateLimit {
+        limit: 100,
+        used: 25,
+    };
     println!("{}", limit.remaining());
 }
 
@@ -30,7 +33,21 @@ mod tests {
 
     #[test]
     fn computes_remaining_quota() {
-        assert_eq!(RateLimit { limit: 100, used: 25 }.remaining(), 75);
-        assert_eq!(RateLimit { limit: 100, used: 150 }.remaining(), 0);
+        assert_eq!(
+            RateLimit {
+                limit: 100,
+                used: 25
+            }
+            .remaining(),
+            75
+        );
+        assert_eq!(
+            RateLimit {
+                limit: 100,
+                used: 150
+            }
+            .remaining(),
+            0
+        );
     }
 }

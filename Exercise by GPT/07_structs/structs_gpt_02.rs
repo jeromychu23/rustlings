@@ -15,11 +15,16 @@ struct ServiceConfig {
 
 fn base_url(config: ServiceConfig) -> String {
     // TODO: Use http when tls is false, https when tls is true.
-    String::new()
+    let schema = if config.tls { "https" } else { "http" };
+    format!("{schema}://{}:{}", config.host, config.port)
 }
 
 fn main() {
-    let config = ServiceConfig { host: "localhost".to_string(), port: 8080, tls: false };
+    let config = ServiceConfig {
+        host: "localhost".to_string(),
+        port: 8080,
+        tls: false,
+    };
     println!("{}", base_url(config));
 }
 
@@ -29,8 +34,16 @@ mod tests {
 
     #[test]
     fn formats_base_url() {
-        let http = ServiceConfig { host: "localhost".to_string(), port: 8080, tls: false };
-        let https = ServiceConfig { host: "api.example.com".to_string(), port: 443, tls: true };
+        let http = ServiceConfig {
+            host: "localhost".to_string(),
+            port: 8080,
+            tls: false,
+        };
+        let https = ServiceConfig {
+            host: "api.example.com".to_string(),
+            port: 443,
+            tls: true,
+        };
         assert_eq!(base_url(http), "http://localhost:8080");
         assert_eq!(base_url(https), "https://api.example.com:443");
     }

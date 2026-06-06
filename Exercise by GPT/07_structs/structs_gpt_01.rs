@@ -16,8 +16,8 @@ struct ApiRequest {
 fn new_request(method: &str, path: &str) -> ApiRequest {
     // TODO: Build and return ApiRequest.
     ApiRequest {
-        method: String::new(),
-        path: String::new(),
+        method: method.to_string(),
+        path: path.to_string(),
     }
 }
 
