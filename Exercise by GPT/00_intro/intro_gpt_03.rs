@@ -9,7 +9,7 @@
 
 fn release_note(service: &str, version: &str, build: u32) -> String {
     // TODO: Return: "<service>@<version> build <build>"
-    String::new()
+    format!("{service}@{version} build {build}")
 }
 
 fn main() {

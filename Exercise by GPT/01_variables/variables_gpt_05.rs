@@ -9,7 +9,7 @@
 
 fn rotate_token_version(version: u32) -> u32 {
     // TODO: Add 1, then multiply by 10 to build the next public version.
-    version
+    (version + 1) * 10
 }
 
 fn main() {

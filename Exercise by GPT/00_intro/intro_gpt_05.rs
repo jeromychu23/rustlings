@@ -9,7 +9,7 @@
 
 fn debug_label(key: &str, value: u32) -> String {
     // TODO: Return: "debug(<key>=<value>)"
-    String::new()
+    format!("debug({key}={value})")
 }
 
 fn main() {

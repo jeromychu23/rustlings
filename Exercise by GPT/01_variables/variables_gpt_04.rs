@@ -11,7 +11,7 @@ const MAX_CONNECTIONS: u16 = 256;
 
 fn remaining_connections(current: u16) -> u16 {
     // TODO: Return how many slots are left. If current is above the max, return 0.
-    current
+    MAX_CONNECTIONS.saturating_sub(current)
 }
 
 fn main() {

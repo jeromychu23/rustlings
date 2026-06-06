@@ -9,7 +9,7 @@
 
 fn health_banner(service: &str) -> String {
     // TODO: Return: "[OK] <service> is ready"
-    String::new()
+    format!("[OK] {service} is ready")
 }
 
 fn main() {

@@ -9,7 +9,7 @@
 
 fn startup_message(service: &str, port: u16) -> String {
     // TODO: Return: "<service> listening on :<port>"
-    String::new()
+    format!("{service} listening on :{port}")
 }
 
 fn main() {
@@ -22,7 +22,10 @@ mod tests {
 
     #[test]
     fn formats_startup_message() {
-        assert_eq!(startup_message("gateway", 8080), "gateway listening on :8080");
+        assert_eq!(
+            startup_message("gateway", 8080),
+            "gateway listening on :8080"
+        );
         assert_eq!(startup_message("auth", 3000), "auth listening on :3000");
     }
 }

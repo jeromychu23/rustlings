@@ -9,7 +9,7 @@
 
 fn default_timeout_ms() -> u32 {
     // TODO: Bind the default timeout to a variable, then return it.
-    0
+    30000
 }
 
 fn main() {

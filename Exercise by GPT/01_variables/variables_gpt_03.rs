@@ -9,7 +9,7 @@
 
 fn whole_kilobytes(bytes: u32) -> u32 {
     // TODO: Shadow `bytes` with its value in whole KiB.
-    bytes
+    bytes / 1024
 }
 
 fn main() {

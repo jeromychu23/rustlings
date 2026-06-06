@@ -9,7 +9,7 @@
 
 fn endpoint_line(method: &str, path: &str) -> String {
     // TODO: Return: "<METHOD> <path>"
-    String::new()
+    format!("{method} {path}")
 }
 
 fn main() {

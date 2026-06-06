@@ -9,7 +9,9 @@
 
 fn increase_retry_count(current: u8) -> u8 {
     // TODO: Make a mutable retry counter and increment it once.
-    current
+    let mut c = current;
+    c += 1;
+    c
 }
 
 fn main() {

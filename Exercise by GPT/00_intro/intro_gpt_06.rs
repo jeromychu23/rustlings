@@ -9,7 +9,7 @@
 
 fn response_preview(status: u16, body: &str) -> String {
     // TODO: Return: "status=<status>; body=\"<body>\""
-    String::new()
+    format!("status={status}; body=\"{body}\"")
 }
 
 fn main() {
@@ -23,6 +23,9 @@ mod tests {
     #[test]
     fn formats_response_preview() {
         assert_eq!(response_preview(200, "ok"), "status=200; body=\"ok\"");
-        assert_eq!(response_preview(404, "missing"), "status=404; body=\"missing\"");
+        assert_eq!(
+            response_preview(404, "missing"),
+            "status=404; body=\"missing\""
+        );
     }
 }

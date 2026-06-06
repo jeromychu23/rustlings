@@ -9,7 +9,10 @@
 
 fn request_total(accepted: u32, rejected: u32, timed_out: u32) -> u32 {
     // TODO: Accumulate all three counts into one mutable total.
-    0
+    let mut total = accepted;
+    total += rejected;
+    total += timed_out;
+    total
 }
 
 fn main() {
