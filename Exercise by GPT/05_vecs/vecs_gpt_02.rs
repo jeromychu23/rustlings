@@ -9,6 +9,7 @@
 
 fn enqueue_request(queue: &mut Vec<String>, request_id: String) {
     // TODO: Push request_id into queue.
+    queue.push(request_id);
 }
 
 fn main() {
