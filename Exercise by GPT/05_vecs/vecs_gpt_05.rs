@@ -9,7 +9,10 @@
 
 fn service_paths(services: Vec<&str>) -> Vec<String> {
     // TODO: Convert each service name into "/api/<service>".
-    Vec::new()
+    services
+        .into_iter()
+        .map(|service| format!("/api/{service}"))
+        .collect()
 }
 
 fn main() {
