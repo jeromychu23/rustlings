@@ -9,11 +9,18 @@
 
 fn latest_events(events: Vec<String>, n: usize) -> Vec<String> {
     // TODO: Return the last n events. If n is larger than the input, return all events.
-    Vec::new()
+    if n > events.len() {
+        events
+    } else {
+        events[(events.len() - n)..].to_vec()
+    }
 }
 
 fn main() {
-    println!("{:?}", latest_events(vec!["a".to_string(), "b".to_string()], 1));
+    println!(
+        "{:?}",
+        latest_events(vec!["a".to_string(), "b".to_string()], 1)
+    );
 }
 
 #[cfg(test)]
@@ -23,7 +30,13 @@ mod tests {
     #[test]
     fn keeps_latest_events() {
         let events = vec!["a".to_string(), "b".to_string(), "c".to_string()];
-        assert_eq!(latest_events(events, 2), vec!["b".to_string(), "c".to_string()]);
-        assert_eq!(latest_events(vec!["x".to_string()], 5), vec!["x".to_string()]);
+        assert_eq!(
+            latest_events(events, 2),
+            vec!["b".to_string(), "c".to_string()]
+        );
+        assert_eq!(
+            latest_events(vec!["x".to_string()], 5),
+            vec!["x".to_string()]
+        );
     }
 }
