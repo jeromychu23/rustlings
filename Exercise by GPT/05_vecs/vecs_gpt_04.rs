@@ -9,6 +9,9 @@
 
 fn double_retry_budgets(budgets: &mut Vec<u8>) {
     // TODO: Multiply every element by 2.
+    for budget in budgets {
+        *budget *= 2;
+    }
 }
 
 fn main() {
