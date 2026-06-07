@@ -9,7 +9,7 @@
 
 fn default_routes() -> Vec<String> {
     // TODO: Return "/health" and "/metrics" as owned Strings.
-    Vec::new()
+    vec!["/health".to_string(), "/metrics".to_string()]
 }
 
 fn main() {
@@ -22,6 +22,9 @@ mod tests {
 
     #[test]
     fn creates_default_routes() {
-        assert_eq!(default_routes(), vec!["/health".to_string(), "/metrics".to_string()]);
+        assert_eq!(
+            default_routes(),
+            vec!["/health".to_string(), "/metrics".to_string()]
+        );
     }
 }
