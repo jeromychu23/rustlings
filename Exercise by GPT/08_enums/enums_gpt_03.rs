@@ -15,7 +15,11 @@ enum Command {
 
 fn command_target(command: Command) -> String {
     // TODO: Return the String stored inside any command variant.
-    String::new()
+    match command {
+        Command::Start(service) => service,
+        Command::Stop(service) => service,
+        Command::Restart(service) => service,
+    }
 }
 
 fn main() {
@@ -29,7 +33,13 @@ mod tests {
     #[test]
     fn extracts_command_target() {
         assert_eq!(command_target(Command::Start("api".to_string())), "api");
-        assert_eq!(command_target(Command::Stop("worker".to_string())), "worker");
-        assert_eq!(command_target(Command::Restart("cache".to_string())), "cache");
+        assert_eq!(
+            command_target(Command::Stop("worker".to_string())),
+            "worker"
+        );
+        assert_eq!(
+            command_target(Command::Restart("cache".to_string())),
+            "cache"
+        );
     }
 }
