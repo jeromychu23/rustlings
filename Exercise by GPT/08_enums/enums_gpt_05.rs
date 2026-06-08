@@ -21,7 +21,7 @@ fn event_label(event: ApiEvent) -> String {
     match event {
         ApiEvent::Request { path } => format!("request:{path}"),
         ApiEvent::Error(err_code) => format!("error:{err_code}"),
-        ApiEvent::Timeout => String::from("timeout"),
+        ApiEvent::Timeout => "timeout".to_string(),
     }
 }
 
