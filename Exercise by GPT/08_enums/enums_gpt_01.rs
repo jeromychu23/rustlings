@@ -16,7 +16,10 @@ enum Method {
 
 fn is_write_method(method: Method) -> bool {
     // TODO: Return true for Post, Put, and Delete.
-    false
+    match method {
+        Method::Get => false,
+        Method::Post | Method::Put | Method::Delete => true,
+    }
 }
 
 fn main() {
