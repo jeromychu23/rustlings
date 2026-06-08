@@ -11,7 +11,14 @@ use std::collections::HashMap;
 
 fn count_status_codes(codes: &[u16]) -> HashMap<u16, u32> {
     // TODO: Count each status code.
-    HashMap::new()
+    let mut hashmap = HashMap::new();
+
+    for code in codes {
+        let count = hashmap.entry(*code).or_insert(0);
+        *count += 1
+    }
+
+    hashmap
 }
 
 fn main() {
