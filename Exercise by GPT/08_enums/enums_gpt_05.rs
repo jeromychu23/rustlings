@@ -18,7 +18,11 @@ fn event_label(event: ApiEvent) -> String {
     // - Request { path } => "request:<path>"
     // - Error(code) => "error:<code>"
     // - Timeout => "timeout"
-    String::new()
+    match event {
+        ApiEvent::Request { path } => format!("request:{path}"),
+        ApiEvent::Error(err_code) => format!("error:{err_code}"),
+        ApiEvent::Timeout => String::from("timeout"),
+    }
 }
 
 fn main() {
@@ -31,7 +35,12 @@ mod tests {
 
     #[test]
     fn labels_events() {
-        assert_eq!(event_label(ApiEvent::Request { path: "/health".to_string() }), "request:/health");
+        assert_eq!(
+            event_label(ApiEvent::Request {
+                path: "/health".to_string()
+            }),
+            "request:/health"
+        );
         assert_eq!(event_label(ApiEvent::Error(500)), "error:500");
         assert_eq!(event_label(ApiEvent::Timeout), "timeout");
     }
