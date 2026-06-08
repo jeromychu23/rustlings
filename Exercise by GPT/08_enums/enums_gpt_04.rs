@@ -16,7 +16,7 @@ enum ConnectionState {
 
 fn can_send(state: ConnectionState) -> bool {
     // TODO: Only Open and Draining can send.
-    false
+    matches!(state, ConnectionState::Open | ConnectionState::Draining)
 }
 
 fn main() {
