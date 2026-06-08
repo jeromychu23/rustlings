@@ -15,7 +15,11 @@ enum AuthDecision {
 
 fn auth_status(decision: AuthDecision) -> u16 {
     // TODO: Allow => 200, Deny(_) => 403, Challenge => 401.
-    0
+    match decision {
+        AuthDecision::Allow => 200,
+        AuthDecision::Deny(_) => 403,
+        AuthDecision::Challenge => 401,
+    }
 }
 
 fn main() {
@@ -29,7 +33,10 @@ mod tests {
     #[test]
     fn maps_auth_statuses() {
         assert_eq!(auth_status(AuthDecision::Allow), 200);
-        assert_eq!(auth_status(AuthDecision::Deny("missing scope".to_string())), 403);
+        assert_eq!(
+            auth_status(AuthDecision::Deny("missing scope".to_string())),
+            403
+        );
         assert_eq!(auth_status(AuthDecision::Challenge), 401);
     }
 }
