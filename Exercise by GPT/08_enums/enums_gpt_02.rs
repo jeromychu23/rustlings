@@ -16,7 +16,12 @@ enum Status {
 
 fn status_code(status: Status) -> u16 {
     // TODO: Return 200, 201, 404, or 500.
-    0
+    match status {
+        Status::Ok => 200,
+        Status::Created => 201,
+        Status::NotFound => 404,
+        Status::InternalError => 500,
+    }
 }
 
 fn main() {
