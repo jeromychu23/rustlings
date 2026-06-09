@@ -11,7 +11,11 @@ use std::collections::HashMap;
 
 fn route_table(routes: Vec<(&str, u16)>) -> HashMap<String, u16> {
     // TODO: Insert each pair into a HashMap<String, u16>.
-    HashMap::new()
+    let mut pair = HashMap::new();
+    for (path, port) in routes {
+        pair.entry(path.to_string()).or_insert(port);
+    }
+    pair
 }
 
 fn main() {
