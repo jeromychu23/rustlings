@@ -11,7 +11,12 @@ use std::collections::HashMap;
 
 fn route_hits(paths: &[&str]) -> HashMap<String, u32> {
     // TODO: Count hits per path.
-    HashMap::new()
+    let mut table = HashMap::new();
+    for &p in paths {
+        let count = table.entry(p.to_string()).or_insert(0);
+        *count += 1;
+    }
+    table
 }
 
 fn main() {
