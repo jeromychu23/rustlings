@@ -23,6 +23,8 @@ impl PositiveNonzeroInteger {
 
 fn main() {
     // You can optionally experiment here.
+    let x = PositiveNonzeroInteger::new(-10);
+    println!("{:?}", x);
 }
 
 #[cfg(test)]
