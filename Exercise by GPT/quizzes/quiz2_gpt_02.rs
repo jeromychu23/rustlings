@@ -20,8 +20,8 @@ mod routing {
     pub fn apply(commands: Vec<RouteCommand>) -> Vec<String> {
         // TODO: Apply Add, Remove, and Clear in order.
         let mut routes = Vec::new();
-        for c in commands {
-            match c {
+        for command in commands {
+            match command {
                 RouteCommand::Add(route) => routes.push(route),
                 RouteCommand::Remove(route) => routes.retain(|r| r != &route),
                 RouteCommand::Clear => routes.clear(),
