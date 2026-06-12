@@ -12,7 +12,11 @@ fn deploy_window(hour_utc: u8, has_incident: bool) -> &'static str {
     // - if has_incident => "blocked"
     // - if hour is from 9 through 17 inclusive => "allowed"
     // - otherwise => "outside_window"
-    "blocked"
+    match (hour_utc, has_incident) {
+        (hour, incident) if incident => "blocked",
+        (hour, incident) if (9..=17).contains(&hour) => "allowed",
+        _ => "outside_window",
+    }
 }
 
 fn main() {
