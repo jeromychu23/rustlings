@@ -7,6 +7,7 @@
 //
 // Task: Apply route commands to a route list.
 
+#[derive(Debug)]
 enum RouteCommand {
     Add(String),
     Remove(String),
@@ -18,17 +19,32 @@ mod routing {
 
     pub fn apply(commands: Vec<RouteCommand>) -> Vec<String> {
         // TODO: Apply Add, Remove, and Clear in order.
-        Vec::new()
+        let mut routes = Vec::new();
+        for c in commands {
+            match c {
+                RouteCommand::Add(route) => routes.push(route),
+                RouteCommand::Remove(route) => routes.retain(|r| r != &route),
+                RouteCommand::Clear => routes.clear(),
+            }
+        }
+        routes
     }
 }
 
 fn main() {
-    let _ = routing::apply(Vec::new());
+    let commands = vec![
+        RouteCommand::Add("/health".to_string()),
+        RouteCommand::Add("/metrics".to_string()),
+        RouteCommand::Remove("/health".to_string()),
+        RouteCommand::Add("/orders".to_string()),
+    ];
+    let new_cmd = routing::apply(commands);
+    println!("{:?}", new_cmd)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{routing, RouteCommand};
+    use super::{RouteCommand, routing};
 
     #[test]
     fn applies_route_commands() {
@@ -39,7 +55,16 @@ mod tests {
             RouteCommand::Add("/orders".to_string()),
         ];
 
-        assert_eq!(routing::apply(commands), vec!["/metrics".to_string(), "/orders".to_string()]);
-        assert_eq!(routing::apply(vec![RouteCommand::Add("/x".to_string()), RouteCommand::Clear]), Vec::<String>::new());
+        assert_eq!(
+            routing::apply(commands),
+            vec!["/metrics".to_string(), "/orders".to_string()]
+        );
+        assert_eq!(
+            routing::apply(vec![
+                RouteCommand::Add("/x".to_string()),
+                RouteCommand::Clear
+            ]),
+            Vec::<String>::new()
+        );
     }
 }
