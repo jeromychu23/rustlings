@@ -18,7 +18,23 @@ mod api {
 
     pub fn transform(paths: Vec<String>, command: ApiCommand) -> Vec<String> {
         // TODO: Apply command to the whole batch.
-        Vec::new()
+        match command {
+            ApiCommand::NormalizePath => paths
+                .into_iter()
+                .map(|path| {
+                    if path.starts_with("/") {
+                        path
+                    } else {
+                        format!("/{path}")
+                    }
+                })
+                .collect(),
+            ApiCommand::AppendVersion(version) => paths
+                .into_iter()
+                .map(|path| format!("{version}{path}"))
+                .collect(),
+            ApiCommand::DropEmpty => paths.into_iter().filter(|path| !path.is_empty()).collect(),
+        }
     }
 }
 
@@ -28,20 +44,29 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::{api, ApiCommand};
+    use super::{ApiCommand, api};
 
     #[test]
     fn transforms_paths() {
         assert_eq!(
-            api::transform(vec!["health".to_string(), "/metrics".to_string()], ApiCommand::NormalizePath),
+            api::transform(
+                vec!["health".to_string(), "/metrics".to_string()],
+                ApiCommand::NormalizePath
+            ),
             vec!["/health".to_string(), "/metrics".to_string()]
         );
         assert_eq!(
-            api::transform(vec!["/users".to_string()], ApiCommand::AppendVersion("/v1".to_string())),
+            api::transform(
+                vec!["/users".to_string()],
+                ApiCommand::AppendVersion("/v1".to_string())
+            ),
             vec!["/v1/users".to_string()]
         );
         assert_eq!(
-            api::transform(vec!["".to_string(), "/ok".to_string()], ApiCommand::DropEmpty),
+            api::transform(
+                vec!["".to_string(), "/ok".to_string()],
+                ApiCommand::DropEmpty
+            ),
             vec!["/ok".to_string()]
         );
     }
