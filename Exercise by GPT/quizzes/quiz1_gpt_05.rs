@@ -12,7 +12,11 @@ fn admission_decision(cpu_percent: u8, queue_depth: u32) -> &'static str {
     // - cpu >= 90 or queue_depth > 1000 => "reject"
     // - cpu >= 75 or queue_depth > 500 => "throttle"
     // - otherwise => "accept"
-    "accept"
+    match (cpu_percent, queue_depth) {
+        (cpu, queue) if cpu >= 90 || queue > 1000 => "reject",
+        (cpu, queue) if cpu >= 75 || queue > 500 => "throttle",
+        _ => "accept",
+    }
 }
 
 fn main() {
