@@ -9,7 +9,11 @@
 
 fn retry_delay_ms(attempt: u8, service_healthy: bool) -> u32 {
     // TODO: Healthy services retry after attempt * 100. Unhealthy services retry after attempt * 500.
-    0
+    let attempt = attempt as u32;
+    match service_healthy {
+        true => attempt * 100,
+        false => attempt * 500,
+    }
 }
 
 fn main() {
