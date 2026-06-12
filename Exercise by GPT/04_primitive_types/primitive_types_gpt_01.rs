@@ -9,7 +9,8 @@
 
 fn status_line(record: (&str, u16)) -> String {
     // TODO: Return "<path> -> <status>".
-    String::new()
+    let (path, status) = record;
+    format!("{path} -> {status}")
 }
 
 fn main() {
