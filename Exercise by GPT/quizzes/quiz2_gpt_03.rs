@@ -18,7 +18,13 @@ mod logs {
 
     pub fn filter(lines: Vec<String>, filter: Filter) -> Vec<String> {
         // TODO: Return lines matching the filter rule.
-        Vec::new()
+        let mut lines = lines;
+        match &filter {
+            Filter::StartsWith(start) => lines.retain(|s| s.starts_with(start)),
+            Filter::Contains(contain) => lines.retain(|s| s.contains(contain)),
+            Filter::Exact(exact) => lines.retain(|s| s == exact),
+        };
+        lines
     }
 }
 
@@ -28,7 +34,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::{logs, Filter};
+    use super::{Filter, logs};
 
     #[test]
     fn filters_logs() {
@@ -44,7 +50,10 @@ mod tests {
         );
 
         assert_eq!(
-            logs::filter(vec!["a=b".to_string(), "c=d".to_string()], Filter::Exact("c=d".to_string())),
+            logs::filter(
+                vec!["a=b".to_string(), "c=d".to_string()],
+                Filter::Exact("c=d".to_string())
+            ),
             vec!["c=d".to_string()]
         );
     }
