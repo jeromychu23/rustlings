@@ -14,11 +14,22 @@ enum TextCommand {
 }
 
 mod text_pipeline {
+
     use super::TextCommand;
 
     pub fn run(input: Vec<(String, TextCommand)>) -> Vec<String> {
         // TODO: Apply each command to its String.
-        Vec::new()
+        let mut output = Vec::new();
+
+        for (word, command) in input {
+            let word = match command {
+                TextCommand::Upper => word.to_uppercase(),
+                TextCommand::Trim => word.trim().to_string(),
+                TextCommand::Prefix(prefix) => format!("{prefix}{word}"),
+            };
+            output.push(word)
+        }
+        output
     }
 }
 
@@ -28,19 +39,26 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::{text_pipeline, TextCommand};
+    use super::{TextCommand, text_pipeline};
 
     #[test]
     fn transforms_text_commands() {
         let input = vec![
             ("hello".to_string(), TextCommand::Upper),
             ("  api  ".to_string(), TextCommand::Trim),
-            ("orders".to_string(), TextCommand::Prefix("svc:".to_string())),
+            (
+                "orders".to_string(),
+                TextCommand::Prefix("svc:".to_string()),
+            ),
         ];
 
         assert_eq!(
             text_pipeline::run(input),
-            vec!["HELLO".to_string(), "api".to_string(), "svc:orders".to_string()]
+            vec![
+                "HELLO".to_string(),
+                "api".to_string(),
+                "svc:orders".to_string()
+            ]
         );
     }
 }
