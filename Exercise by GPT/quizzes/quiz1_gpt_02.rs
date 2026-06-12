@@ -7,9 +7,14 @@
 //
 // Task: Return a login capacity message from current and maximum user counts.
 
+use std::cmp::Ordering;
+
 fn login_capacity(current_users: u32, max_users: u32) -> &'static str {
     // TODO: Return "open" if current_users is less than max_users, otherwise "full".
-    "full"
+    match current_users.cmp(&max_users) {
+        Ordering::Less => "open",
+        _ => "full",
+    }
 }
 
 fn main() {
