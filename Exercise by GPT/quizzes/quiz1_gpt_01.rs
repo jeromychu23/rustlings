@@ -9,7 +9,11 @@
 
 fn request_price(requests: u32) -> u32 {
     // TODO: First 1,000 requests cost 2 units each. Above that, all requests cost 1 unit each.
-    0
+    if requests <= 1000 {
+        requests * 2
+    } else {
+        requests
+    }
 }
 
 fn main() {
