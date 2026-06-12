@@ -9,7 +9,11 @@
 
 fn billing_tier(monthly_requests: u32) -> &'static str {
     // TODO: < 1_000 => "free", < 100_000 => "team", otherwise "enterprise".
-    "free"
+    match monthly_requests {
+        0..1000 => "free",
+        1000..100_000 => "team",
+        _ => "enterprise",
+    }
 }
 
 fn main() {
