@@ -9,7 +9,11 @@
 
 fn max_payload_size(sizes: &[usize]) -> usize {
     // TODO: Return 0 for an empty slice, otherwise return the largest size.
-    0
+    if sizes.is_empty() {
+        0
+    } else {
+        *sizes.iter().max().unwrap()
+    }
 }
 
 fn main() {
