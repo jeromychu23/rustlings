@@ -9,7 +9,7 @@
 
 fn port_sum(ports: [u16; 3]) -> u16 {
     // TODO: Return the sum of all three ports.
-    0
+    ports.iter().sum()
 }
 
 fn main() {
