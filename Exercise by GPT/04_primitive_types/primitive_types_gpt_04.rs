@@ -9,7 +9,7 @@
 
 fn is_route_separator(ch: char) -> bool {
     // TODO: Return true for '/' or ':'.
-    false
+    matches!(ch, '/' | ':')
 }
 
 fn main() {
