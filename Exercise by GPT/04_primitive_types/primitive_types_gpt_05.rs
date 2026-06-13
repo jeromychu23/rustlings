@@ -9,7 +9,7 @@
 
 fn metric_label(sample: (&str, u32, bool)) -> String {
     // TODO: Return "<name>=<value> active=<flag>".
-    String::new()
+    format!("{}={} active={}", sample.0, sample.1, sample.2)
 }
 
 fn main() {
@@ -22,7 +22,10 @@ mod tests {
 
     #[test]
     fn formats_metric_label() {
-        assert_eq!(metric_label(("requests", 42, true)), "requests=42 active=true");
+        assert_eq!(
+            metric_label(("requests", 42, true)),
+            "requests=42 active=true"
+        );
         assert_eq!(metric_label(("errors", 0, false)), "errors=0 active=false");
     }
 }
