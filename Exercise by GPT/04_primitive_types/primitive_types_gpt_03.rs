@@ -9,7 +9,11 @@
 
 fn average_latency(latencies: &[u32]) -> u32 {
     // TODO: Return 0 for an empty slice. Otherwise return the whole-number average.
-    0
+    if latencies.is_empty() {
+        0
+    } else {
+        latencies.iter().sum::<u32>() / latencies.len() as u32
+    }
 }
 
 fn main() {
