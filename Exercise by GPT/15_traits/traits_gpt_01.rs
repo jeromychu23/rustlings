@@ -14,7 +14,7 @@ trait AddAuditSuffix {
 impl AddAuditSuffix for String {
     fn add_audit_suffix(self) -> Self {
         // TODO: Append "-AUDIT" and return the new String.
-        self
+        format!("{self}-AUDIT")
     }
 }
 
