@@ -9,7 +9,7 @@
 
 fn normalize_header_name(raw: &str) -> String {
     // TODO: Trim whitespace and lowercase the header name.
-    String::new()
+    raw.trim().to_lowercase()
 }
 
 fn main() {
