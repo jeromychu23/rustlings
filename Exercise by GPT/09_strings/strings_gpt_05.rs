@@ -9,7 +9,10 @@
 
 fn route_segments(path: &str) -> Vec<String> {
     // TODO: Split by '/', skip empty segments, and return owned Strings.
-    Vec::new()
+    path.split('/')
+        .filter(|x| !x.is_empty())
+        .map(str::to_string)
+        .collect()
 }
 
 fn main() {
