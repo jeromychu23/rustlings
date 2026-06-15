@@ -9,7 +9,12 @@
 
 fn normalize_path(path: &str) -> String {
     // TODO: Trim whitespace. If the result has no leading '/', add one.
-    String::new()
+    let mut new_path = path.trim();
+    if new_path.starts_with("/") {
+        new_path.to_string()
+    } else {
+        format!("/{new_path}")
+    }
 }
 
 fn main() {
