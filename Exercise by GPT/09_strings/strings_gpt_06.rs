@@ -9,7 +9,8 @@
 
 fn service_env_key(service: &str) -> String {
     // TODO: Uppercase letters and replace '-' with '_'. Prefix with "SERVICE_".
-    String::new()
+    let new_service = service.to_uppercase().replace("-", "_");
+    format!("SERVICE_{new_service}")
 }
 
 fn main() {
