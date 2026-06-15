@@ -14,6 +14,7 @@ trait AppendReviewStep {
 impl AppendReviewStep for Vec<String> {
     fn append_review_step(mut self) -> Self {
         // TODO: Push "review" into the vector and return it.
+        self.push(String::from("review"));
         self
     }
 }
