@@ -9,6 +9,8 @@
 
 fn append_query(mut path: String, query: &str) -> String {
     // TODO: Append '?' and query to path, then return path.
+    path.push('?');
+    path.push_str(query);
     path
 }
 
@@ -22,7 +24,13 @@ mod tests {
 
     #[test]
     fn appends_query() {
-        assert_eq!(append_query("/search".to_string(), "q=rust"), "/search?q=rust");
-        assert_eq!(append_query("/items".to_string(), "page=2"), "/items?page=2");
+        assert_eq!(
+            append_query("/search".to_string(), "q=rust"),
+            "/search?q=rust"
+        );
+        assert_eq!(
+            append_query("/items".to_string(), "page=2"),
+            "/items?page=2"
+        );
     }
 }
