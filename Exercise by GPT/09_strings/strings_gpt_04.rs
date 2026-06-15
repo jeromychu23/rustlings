@@ -9,7 +9,10 @@
 
 fn redact_bearer(header: &str) -> String {
     // TODO: If header starts with "Bearer ", return "Bearer ***"; otherwise return header unchanged.
-    String::new()
+    match header.starts_with("Bearer") {
+        true => "Bearer ***".to_string(),
+        false => header.to_string(),
+    }
 }
 
 fn main() {
