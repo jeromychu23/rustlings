@@ -10,7 +10,7 @@
 trait Licensed {
     fn licensing_info(&self) -> String {
         // TODO: Return "Default license".
-        String::new()
+        "Default license".to_string()
     }
 }
 
