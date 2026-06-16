@@ -33,7 +33,7 @@ impl Identified for Defect {
 
 fn same_id(left: impl Identified, right: impl Identified) -> bool {
     // TODO: Compare the two ids.
-    false
+    left.id() == right.id()
 }
 
 fn main() {
