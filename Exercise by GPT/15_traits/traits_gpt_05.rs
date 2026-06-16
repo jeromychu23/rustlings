@@ -34,7 +34,7 @@ impl HasMessage for Alert {
 
 fn should_page(item: impl HasSeverity + HasMessage) -> bool {
     // TODO: Page when severity is at least 8 and the message is not empty.
-    false
+    item.severity() > 8 && !item.message().is_empty()
 }
 
 fn main() {
