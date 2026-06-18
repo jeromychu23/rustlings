@@ -33,12 +33,12 @@ impl Source for CsvSource {
 
 fn same_system(left: impl Source, right: impl Source) -> bool {
     // TODO: This function can accept two different concrete types.
-    false
+    left.system() == right.system()
 }
 
 fn same_system_strict<T: Source>(left: T, right: T) -> bool {
     // TODO: This function requires both arguments to have the same concrete type.
-    false
+    left.system() == right.system()
 }
 
 fn main() {
