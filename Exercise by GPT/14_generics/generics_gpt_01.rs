@@ -16,6 +16,10 @@ fn normalize_counts() -> Vec<i16> {
     let correction: i8 = -3;
     let retry_count: u8 = 2;
 
+    counts.push(open_count.into());
+    counts.push(correction.into());
+    counts.push(retry_count.into());
+
     counts
 }
 
