@@ -24,20 +24,24 @@ struct Aircraft {
 impl ToLabel for WorkOrder {
     fn label(&self) -> String {
         // TODO: Format as "WO <id> [<status>]".
-        String::new()
+        format!("WO {} [{}]", self.id, self.status)
     }
 }
 
 impl ToLabel for Aircraft {
     fn label(&self) -> String {
         // TODO: Format as "Aircraft <tail_number> (<fleet>)".
-        String::new()
+        format!("Aircraft {} ({})", self.tail_number, self.fleet)
     }
 }
 
 fn collect_labels<T: ToLabel>(items: &[T]) -> Vec<String> {
     // TODO: Return each item's label.
-    Vec::new()
+    let mut output = Vec::new();
+    for item in items {
+        output.push(item.label())
+    }
+    output
 }
 
 fn main() {
