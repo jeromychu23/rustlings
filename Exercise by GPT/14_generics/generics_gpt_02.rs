@@ -16,14 +16,14 @@ impl<T> Metric<T> {
     fn new(name: &str, value: T) -> Self {
         // TODO: Store the provided metric name.
         Metric {
-            name: String::new(),
+            name: name.to_string(),
             value,
         }
     }
 
     fn name(&self) -> &str {
         // TODO: Return the stored name.
-        ""
+        &self.name
     }
 
     fn into_value(self) -> T {
