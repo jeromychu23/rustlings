@@ -25,7 +25,13 @@ struct FlightLeg {
 impl Validate for WorkOrder {
     fn validate(&self) -> Result<(), String> {
         // TODO: id must not be empty and estimated_hours must be greater than 0.
-        Ok(())
+        if self.id.is_empty() {
+            Err("work order id is required".to_string())
+        } else if self.estimated_hours == 0 {
+            Err("estimated hours must be greater than 0".to_string())
+        } else {
+            Ok(())
+        }
     }
 }
 
@@ -33,13 +39,29 @@ impl Validate for FlightLeg {
     fn validate(&self) -> Result<(), String> {
         // TODO: flight_no, origin, and destination must be non-empty.
         // TODO: origin and destination must be different.
-        Ok(())
+        if self.flight_no.is_empty() {
+            Err("flight number is required".to_string())
+        } else if self.origin.is_empty() {
+            Err("origin is required".to_string())
+        } else if self.destination.is_empty() {
+            Err("destination is required".to_string())
+        } else if self.origin == self.destination {
+            Err("origin and destination must be different".to_string())
+        } else {
+            Ok(())
+        }
     }
 }
 
 fn collect_invalid<T: Validate>(items: &[T]) -> Vec<String> {
     // TODO: Return every validation error message.
-    Vec::new()
+    let mut output = Vec::new();
+    for item in items {
+        if let Err(error) = item.validate() {
+            output.push(error)
+        }
+    }
+    output
 }
 
 fn main() {
