@@ -25,14 +25,25 @@ impl Validate for WorkOrderRecord {
     fn validate(&self) -> Result<(), String> {
         // TODO: id and aircraft are required.
         // TODO: hours_since_last_check must be at most 500.
-        Ok(())
+        if self.id.is_empty() {
+            Err("work order id is required".to_string())
+        } else if self.aircraft.is_empty() {
+            Err("aircraft is  required".to_string())
+        } else if self.hours_since_last_check > 500 {
+            Err("hours since last check exceeds limit".to_string())
+        } else {
+            Ok(())
+        }
     }
 }
 
 impl ToLine for WorkOrderRecord {
     fn to_line(&self) -> String {
         // TODO: Format as "<id>|<aircraft>|<hours_since_last_check>".
-        String::new()
+        format!(
+            "{}|{}|{}",
+            self.id, self.aircraft, self.hours_since_last_check
+        )
     }
 }
 
@@ -44,26 +55,35 @@ struct PipelineReport {
 impl PipelineReport {
     fn accepted_count(&self) -> usize {
         // TODO: Count accepted rows.
-        0
+        self.accepted_lines.len()
     }
 
     fn error_count(&self) -> usize {
         // TODO: Count rejected rows.
-        0
+        self.errors.len()
     }
 
     fn is_clean(&self) -> bool {
         // TODO: Clean means there are no errors.
-        true
+        self.errors.is_empty()
     }
 }
 
 fn run_pipeline<T: Validate + ToLine>(records: &[T]) -> PipelineReport {
     // TODO: For each record, validate first.
     // TODO: Valid rows become output lines; invalid rows become errors.
+    let mut accepted_lines = Vec::new();
+    let mut errors = Vec::new();
+
+    for record in records {
+        match record.validate() {
+            Ok(()) => accepted_lines.push(record.to_line()),
+            Err(error) => errors.push(error),
+        }
+    }
     PipelineReport {
-        accepted_lines: Vec::new(),
-        errors: Vec::new(),
+        accepted_lines,
+        errors,
     }
 }
 
