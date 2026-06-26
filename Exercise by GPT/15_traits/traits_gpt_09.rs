@@ -12,12 +12,12 @@ trait SeverityRule {
 
     fn severity(&self) -> u8 {
         // TODO: The default severity should be the base severity.
-        0
+        self.base_severity()
     }
 
     fn is_high_priority(&self) -> bool {
         // TODO: High priority means severity is at least 8.
-        false
+        self.severity() >= 8
     }
 }
 
@@ -34,26 +34,34 @@ struct RoutineInspection;
 impl SeverityRule for DelayEvent {
     fn base_severity(&self) -> u8 {
         // TODO: 0..=29 minutes => 3, 30..=119 => 6, 120+ => 8.
-        0
+        match self.delayed_minutes {
+            (0..=29) => 3,
+            (30..=119) => 6,
+            (120..) => 8,
+        }
     }
 }
 
 impl SeverityRule for AogEvent {
     fn base_severity(&self) -> u8 {
         // TODO: Base severity for AOG is 9.
-        0
+        9
     }
 
     fn severity(&self) -> u8 {
         // TODO: Override so blocked_hours >= 24 returns 10, otherwise base severity.
-        self.base_severity()
+        if self.blocked_hours >= 24 {
+            10
+        } else {
+            self.base_severity()
+        }
     }
 }
 
 impl SeverityRule for RoutineInspection {
     fn base_severity(&self) -> u8 {
         // TODO: Routine inspection severity is 2.
-        0
+        2
     }
 }
 
